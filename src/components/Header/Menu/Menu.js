@@ -7,6 +7,8 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import Box from '@material-ui/core/Box';
 import {makeStyles} from '@material-ui/core/styles';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import GroupIcon from '@material-ui/icons/Group';
+import {NavLink} from 'react-router-dom';
 
 const useStyles = makeStyles({
     menu: {
@@ -23,18 +25,29 @@ const Menu = () => {
     const styles = useStyles();
     return (
         <Box className={styles.menu}>
-            <IconButton>
-                <MessageIcon className={styles.menuIcon}/>
-            </IconButton>
+            <NavLink to='/projects'>
+                <IconButton>
+                    <GroupIcon className={styles.menuIcon}/>
+                </IconButton>
+            </NavLink>
+            <NavLink to='/dialogs'>
+                <IconButton>
+                    <MessageIcon className={styles.menuIcon}/>
+                </IconButton>
+            </NavLink>
             <IconButton>
                 <NotificationsIcon className={styles.menuIcon}/>
             </IconButton>
-            <IconButton>
-                <SettingsIcon className={styles.menuIcon}/>
-            </IconButton>
-            <IconButton>
-                <AccountCircleIcon className={styles.menuIcon}/>
-            </IconButton>
+            <NavLink to='/settings'>
+                <IconButton>
+                    <SettingsIcon className={styles.menuIcon}/>
+                </IconButton>
+            </NavLink>
+            <NavLink to='/account'>
+                <IconButton>
+                    <AccountCircleIcon className={styles.menuIcon}/>
+                </IconButton>
+            </NavLink>
             <IconButton>
                 <ExitToAppIcon className={styles.menuIcon}/>
             </IconButton>

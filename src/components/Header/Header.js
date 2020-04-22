@@ -7,6 +7,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Menu from "./Menu/Menu";
 import {useSelector} from 'react-redux';
 import {getIsSignedIn} from '../../reducers/auth';
+import {NavLink} from 'react-router-dom';
 
 const useStyles = makeStyles({
     root: {
@@ -36,7 +37,9 @@ const Header = () => {
             <AppBar position="static" className={styles.root}>
                 <Toolbar>
                     <Box flexGrow={1} className={!isAuth && styles.authFalse}>
-                        <BugReportIcon className={`${styles.largeIcon} ${styles.logoIcon}`}/>
+                        <NavLink to='/'>
+                            <BugReportIcon className={`${styles.largeIcon} ${styles.logoIcon}`}/>
+                        </NavLink>
                     </Box>
                     {isAuth && <Menu/>}
                 </Toolbar>
