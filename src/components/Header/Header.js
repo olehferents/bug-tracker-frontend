@@ -5,6 +5,8 @@ import BugReportIcon from '@material-ui/icons/BugReport';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Menu from "./Menu/Menu";
+import {useSelector} from 'react-redux';
+import {getIsSignedIn} from '../../reducers/auth';
 
 const useStyles = makeStyles({
     root: {
@@ -28,7 +30,7 @@ const useStyles = makeStyles({
 
 const Header = () => {
     const styles = useStyles();
-    const isAuth = true;
+    const isAuth = useSelector(state => getIsSignedIn(state));
     return (
         <div>
             <AppBar position="static" className={styles.root}>
