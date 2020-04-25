@@ -8,7 +8,7 @@ import FormHeader from './FormHeader';
 
 const useStyles = makeStyles({
     root: {
-        height: '350px',
+        height: '380px',
         width: '500px',
         display: 'flex',
         flexDirection: 'column',

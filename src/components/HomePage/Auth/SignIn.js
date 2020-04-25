@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import FormHeader from './FormHeader';
 import Grid from '@material-ui/core/Grid';
@@ -7,10 +7,11 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import {formErrorText} from '../../../const/auth';
 
 const useStyles = makeStyles({
     root: {
-        height: '350px',
+        height: '370px',
         width: '500px',
         display: 'flex',
         flexDirection: 'column',
@@ -19,6 +20,31 @@ const useStyles = makeStyles({
 
 const SignIn = () => {
     const styles = useStyles();
+
+    const [isValid, setIsValid] = useState(true);
+    const [errorHelperText] = useState(formErrorText);
+    const [email, setEmail] = useState(null);
+    const [password, setPassword] = useState(null);
+    const [rememberMe, setRememberMe] = useState(false);
+
+    const handleInputs = (event, isChecked) => {
+        const {name, value} = event.currentTarget;
+        if (name === 'email') {
+            setEmail(value);
+        } else if (name === 'password') {
+            setPassword(value);
+        } else if (name === 'rememberMe') {
+            setRememberMe(isChecked);
+        }
+    };
+
+    const validate = () => {
+
+    };
+
+    const submit = () => {
+
+    };
 
     return (
         <div className={styles.root}>
@@ -47,6 +73,9 @@ const SignIn = () => {
                         autoComplete="email"
                         variant="outlined"
                         label="Email"
+                        onChange={handleInputs}
+                        error={!isValid}
+                        helperText={!isValid && errorHelperText.email}
                     />
                 </FormControl>
                 <FormControl
@@ -60,6 +89,9 @@ const SignIn = () => {
                         variant="outlined"
                         label="Password"
                         type="password"
+                        onChange={handleInputs}
+                        error={!isValid}
+                        helperText={!isValid && errorHelperText.password}
                     />
                 </FormControl>
             </Grid>
@@ -74,6 +106,7 @@ const SignIn = () => {
                         <Checkbox
                             name="rememberMe"
                             color="primary"
+                            onChange={handleInputs}
                         />
                     }
                 >
@@ -84,7 +117,13 @@ const SignIn = () => {
                 fullWidth
                 margin="normal"
             >
-                <Button fullWidth variant="contained" color="primary">Submit</Button>
+                <Button
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                >
+                    Submit
+                </Button>
             </Grid>
         </div>
     )
