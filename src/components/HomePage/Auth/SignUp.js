@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import FormHeader from './FormHeader';
+import {formErrorText} from '../../../const/auth';
 
 const useStyles = makeStyles({
     root: {
@@ -18,6 +19,34 @@ const useStyles = makeStyles({
 const SignUp = () => {
     const styles = useStyles();
 
+    const [isValid, setIsValid] = useState(true);
+    const [errorHelperText] = useState(formErrorText);
+    const [firstName, setFirstName] = useState(null);
+    const [lastName, setLastName] = useState(null);
+    const [email, setEmail] = useState(null);
+    const [password, setPassword] = useState(null);
+
+    const handleInputs = (event) => {
+        const {name, value} = event.currentTarget;
+        if (name === 'fname') {
+
+        } else if (name === 'lname') {
+
+        } else if (name === 'email') {
+            setEmail(value);
+        } else if (name === 'password') {
+            setPassword(value);
+        }
+    };
+
+    const validate = () => {
+
+    };
+
+    const submit = () => {
+
+    };
+
     return (
         <div className={styles.root}>
             <FormHeader title="Sign Up"/>
@@ -28,10 +57,24 @@ const SignUp = () => {
                 alignItems="center"
             >
                 <FormControl required>
-                    <TextField id="fname" label="First Name" variant="outlined"/>
+                    <TextField
+                        name="fname"
+                        label="First Name"
+                        variant="outlined"
+                        onChange={handleInputs}
+                        error={!isValid}
+                        helperText={!isValid && errorHelperText.fname}
+                    />
                 </FormControl>
                 <FormControl required>
-                    <TextField id="lname" label="Last Name" variant="outlined"/>
+                    <TextField
+                        name="lname"
+                        label="Last Name"
+                        variant="outlined"
+                        onChange={handleInputs}
+                        error={!isValid}
+                        helperText={!isValid && errorHelperText.lname}
+                    />
                 </FormControl>
             </Grid>
             <Grid
@@ -51,6 +94,9 @@ const SignUp = () => {
                         autoComplete="email"
                         variant="outlined"
                         label="Email"
+                        onChange={handleInputs}
+                        error={!isValid}
+                        helperText={!isValid && errorHelperText.email}
                     />
                 </FormControl>
                 <FormControl
@@ -64,6 +110,9 @@ const SignUp = () => {
                         variant="outlined"
                         label="Password"
                         type="password"
+                        onChange={handleInputs}
+                        error={!isValid}
+                        helperText={!isValid && errorHelperText.password}
                     />
                 </FormControl>
             </Grid>
