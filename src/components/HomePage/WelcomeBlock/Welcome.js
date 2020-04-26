@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Box from '@material-ui/core/Box';
 import Fade from '@material-ui/core/Fade';
 import Button from '@material-ui/core/Button';
@@ -6,6 +6,8 @@ import {makeStyles} from '@material-ui/core/styles';
 import Modal from 'react-modal';
 import SignUp from '../Auth/SignUp';
 import SignIn from '../Auth/SignIn';
+import {useDispatch} from 'react-redux';
+import {REFRESH_FORM} from '../../../actions/form';
 
 const useStyles = makeStyles({
     root: {
@@ -53,6 +55,7 @@ const Welcome = () => {
     const styles = useStyles();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [modalType, setModalType] = useState(null);
+    const dispatch = useDispatch();
 
     const changeModal = (type) => {
         setModalType(type);
@@ -65,7 +68,12 @@ const Welcome = () => {
 
     const closeModal = () => {
         setIsModalOpen(false);
+        dispatch({type: REFRESH_FORM, payload: true});
     };
+
+    useEffect(() => {
+        Modal.setAppElement('body');
+    }, []);
 
     return (
         <div>
