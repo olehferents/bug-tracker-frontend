@@ -7,11 +7,14 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import {formErrorText} from '../../../const/auth';
+import {formHelperText} from '../../../const/auth';
+import {useDispatch, useSelector} from 'react-redux';
+import {getIsEmailValid, getIsPasswordValid} from '../../../reducers/form';
+import {validateForm} from '../../../utils';
+import {CHANGE_IS_EMAIL_VALID, CHANGE_IS_PASSWORD_VALID} from '../../../actions/form';
 
 const useStyles = makeStyles({
     root: {
-        height: '370px',
         width: '500px',
         display: 'flex',
         flexDirection: 'column',
@@ -21,11 +24,15 @@ const useStyles = makeStyles({
 const SignIn = () => {
     const styles = useStyles();
 
-    const [isValid, setIsValid] = useState(true);
-    const [errorHelperText] = useState(formErrorText);
+    const [helperText] = useState(formHelperText);
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
     const [rememberMe, setRememberMe] = useState(false);
+
+    const dispatch = useDispatch();
+
+    const isEmailValid = useSelector(state => getIsEmailValid(state));
+    const isPasswordValid = useSelector(state => getIsPasswordValid(state));
 
     const handleInputs = (event, isChecked) => {
         const {name, value} = event.currentTarget;
@@ -39,11 +46,11 @@ const SignIn = () => {
     };
 
     const validate = () => {
-
+        validateForm(dispatch, {email, password});
     };
 
     const submit = () => {
-
+        validate();
     };
 
     return (
@@ -74,8 +81,9 @@ const SignIn = () => {
                         variant="outlined"
                         label="Email"
                         onChange={handleInputs}
-                        error={!isValid}
-                        helperText={!isValid && errorHelperText.email}
+                        error={!isEmailValid}
+                        helperText={!isEmailValid && helperText.email}
+                        onFocus={() => dispatch({type: CHANGE_IS_EMAIL_VALID, payload: true})}
                     />
                 </FormControl>
                 <FormControl
@@ -90,8 +98,9 @@ const SignIn = () => {
                         label="Password"
                         type="password"
                         onChange={handleInputs}
-                        error={!isValid}
-                        helperText={!isValid && errorHelperText.password}
+                        error={!isPasswordValid}
+                        helperText={helperText.password}
+                        onFocus={() => dispatch({type: CHANGE_IS_PASSWORD_VALID, payload: true})}
                     />
                 </FormControl>
             </Grid>
@@ -121,6 +130,7 @@ const SignIn = () => {
                     fullWidth
                     variant="contained"
                     color="primary"
+                    onClick={submit}
                 >
                     Submit
                 </Button>
