@@ -5,14 +5,14 @@ import {
     CHANGE_IS_PASSWORD_VALID
 } from '../actions/form';
 
-export const validateForm = (dispatch, {fname = '', lname = '', email = '', password = ''}) => {
-    if (!isNameValid(fname)) {
+export const validateForm = (dispatch, {firstName = '', lastName = '', email = '', password = ''}) => {
+    if (!isNameValid(firstName)) {
         dispatch({type: CHANGE_IS_FIRST_NAME_VALID, payload: false});
     } else {
         dispatch({type: CHANGE_IS_FIRST_NAME_VALID, payload: true});
     }
 
-    if (!isNameValid(lname)) {
+    if (!isNameValid(lastName)) {
         dispatch({type: CHANGE_IS_LAST_NAME_VALID, payload: false});
     } else {
         dispatch({type: CHANGE_IS_LAST_NAME_VALID, payload: true});
