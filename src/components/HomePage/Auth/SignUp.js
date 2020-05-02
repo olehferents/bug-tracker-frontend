@@ -15,12 +15,19 @@ import {
     CHANGE_IS_LAST_NAME_VALID,
     CHANGE_IS_PASSWORD_VALID
 } from '../../../actions/form';
+import {signUp} from '../../../actions/auth';
+import {getIsSignedUp} from '../../../reducers/auth';
+import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles({
     root: {
         width: '500px',
         display: 'flex',
         flexDirection: 'column',
+    },
+    successSignUpText: {
+        color: '#357a38',
+        fontWeight: 'bold',
     },
 });
 
@@ -39,6 +46,8 @@ const SignUp = () => {
     const isLnameValid = useSelector(state => getIsLastNameValid(state));
     const isEmailValid = useSelector(state => getIsEmailValid(state));
     const isPasswordValid = useSelector(state => getIsPasswordValid(state));
+
+    const isSignedUp = useSelector(state => getIsSignedUp(state));
 
     const handleInputs = (event) => {
         const {name, value} = event.currentTarget;
@@ -59,6 +68,9 @@ const SignUp = () => {
 
     const submit = () => {
         validate();
+        if (isFnameValid && isLnameValid && isEmailValid && isPasswordValid) {
+            dispatch(signUp({firstName, lastName, email, password}))
+        }
     };
 
     return (
@@ -134,6 +146,22 @@ const SignUp = () => {
                     />
                 </FormControl>
             </Grid>
+            {isSignedUp &&
+            <Grid
+                container
+                fullWidth
+                margin="normal"
+                justify="center"
+                alignItems="center"
+            >
+                <Typography
+                    variant="subtitle1"
+                    gutterBottom
+                    className={styles.successSignUpText}
+                >
+                    {formHelperText.successSignUp}
+                </Typography>
+            </Grid>}
             <Grid
                 container
                 fullWidth

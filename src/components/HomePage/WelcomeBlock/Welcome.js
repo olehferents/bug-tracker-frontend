@@ -8,6 +8,7 @@ import SignUp from '../Auth/SignUp';
 import SignIn from '../Auth/SignIn';
 import {useDispatch} from 'react-redux';
 import {REFRESH_FORM} from '../../../actions/form';
+import {FAILED, SIGN_UP} from '../../../actions/auth';
 
 const useStyles = makeStyles({
     root: {
@@ -69,6 +70,7 @@ const Welcome = () => {
     const closeModal = () => {
         setIsModalOpen(false);
         dispatch({type: REFRESH_FORM, payload: true});
+        dispatch({type: SIGN_UP + FAILED, payload: false});
     };
 
     useEffect(() => {
