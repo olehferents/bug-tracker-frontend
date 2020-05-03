@@ -23,11 +23,10 @@ export const signUp = (formData) => {
 
             if (status === 200) {
                 dispatch({type: SIGN_UP + SUCCESS, payload: true});
-            } else {
-                dispatch({type: SIGN_UP + FAILED, payload: false});
             }
         } catch (e) {
             console.log(e);
+            dispatch({type: SIGN_UP + FAILED, payload: false});
         }
     }
 };
@@ -43,12 +42,25 @@ export const signIn = (formData) => {
             localStorage.setItem(ACCESS_TOKEN, data.token);
 
             if (status === 200) {
-                dispatch({type: SIGN_IN + SUCCESS, payload: true});
-            } else {
-                dispatch({type: SIGN_IN + FAILED, payload: false});
+                dispatch({type: SIGN_IN + SUCCESS,payload: true});
             }
         } catch (e) {
-            console.log(e);
+            const {data} = e.response;
+
+            dispatch({
+                type: SIGN_IN + FAILED,
+                payload: {
+                    success: false,
+                    error: data.message
+                }
+            });
         }
+    }
+};
+
+export const logOut = () => {
+    return async dispatch => {
+        localStorage.removeItem(ACCESS_TOKEN);
+        dispatch({type: LOG_OUT, payload: true})
     }
 };

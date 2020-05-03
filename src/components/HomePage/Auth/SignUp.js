@@ -26,7 +26,7 @@ const useStyles = makeStyles({
         flexDirection: 'column',
     },
     successSignUpText: {
-        color: '#357a38',
+        color: '#81c784',
         fontWeight: 'bold',
     },
 });

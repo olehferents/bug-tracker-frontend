@@ -9,6 +9,8 @@ import {makeStyles} from '@material-ui/core/styles';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import GroupIcon from '@material-ui/icons/Group';
 import {NavLink} from 'react-router-dom';
+import {useDispatch} from 'react-redux';
+import {logOut} from '../../../actions/auth';
 
 const useStyles = makeStyles({
     menu: {
@@ -23,6 +25,13 @@ const useStyles = makeStyles({
 
 const Menu = () => {
     const styles = useStyles();
+
+    const dispatch = useDispatch();
+
+    const handleExitButton = () => {
+        dispatch(logOut());
+    };
+
     return (
         <Box className={styles.menu}>
             <NavLink to='/projects'>
@@ -48,7 +57,7 @@ const Menu = () => {
                     <AccountCircleIcon className={styles.menuIcon}/>
                 </IconButton>
             </NavLink>
-            <IconButton>
+            <IconButton onClick={handleExitButton}>
                 <ExitToAppIcon className={styles.menuIcon}/>
             </IconButton>
         </Box>

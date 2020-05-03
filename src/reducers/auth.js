@@ -3,7 +3,7 @@ import {SIGN_UP, SIGN_IN, LOG_OUT, moduleName, SUCCESS, FAILED} from '../actions
 const initialState = {
     isSignedUp: false,
     isSignedIn: false,
-    isSignedOut: true,
+    errorMessage: '',
 };
 
 export const auth = (state = initialState, action) => {
@@ -28,7 +28,13 @@ export const auth = (state = initialState, action) => {
         case SIGN_IN + FAILED:
             return {
                 ...state,
-                isSignedIn: payload,
+                isSignedIn: payload.signIn,
+                errorMessage: payload.error,
+            };
+        case LOG_OUT:
+            return {
+                ...state,
+                isSignedIn: !payload,
             };
         default:
             return state;
@@ -38,6 +44,4 @@ export const auth = (state = initialState, action) => {
 export const getState = state => state[moduleName];
 export const getIsSignedUp = state => getState(state).isSignedUp;
 export const getIsSignedIn = state => getState(state).isSignedIn;
-export const getIsSignedOut = state => getState(state).isSignedOut;
-export const getIsLoading = state => getState(state).isLoading;
-export const getIsFailed = state => getState(state).isFailed;
+export const getErrorMessage = state => getState(state).errorMessage;
