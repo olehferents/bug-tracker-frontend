@@ -32,13 +32,13 @@ const useStyles = makeStyles({
 
 const FormHeader = (props) => {
     const styles = useStyles();
-    const {title} = props;
+    const {title, icon} = props;
 
     return (
         <div className={styles.formHeader}>
-            <div className={styles.lockIconWrapper}>
+            {icon && <div className={styles.lockIconWrapper}>
                 <LockIcon className={styles.menuIcon}/>
-            </div>
+            </div>}
             <span className={styles.contentText}>{title}</span>
         </div>
     )

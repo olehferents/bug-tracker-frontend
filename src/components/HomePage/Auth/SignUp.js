@@ -75,7 +75,7 @@ const SignUp = () => {
 
     return (
         <div className={styles.root}>
-            <FormHeader title="Sign Up"/>
+            <FormHeader title="Sign Up" icon={true}/>
             <Grid
                 container
                 direction="row"
