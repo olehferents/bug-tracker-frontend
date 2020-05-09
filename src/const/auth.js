@@ -8,3 +8,4 @@ export const formHelperText = {
 };
 
 export const ACCESS_TOKEN = 'accessToken';
+export const USER_ID = 'userId';
