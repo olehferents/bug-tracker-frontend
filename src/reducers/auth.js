@@ -1,4 +1,5 @@
-import {SIGN_UP, SIGN_IN, LOG_OUT, moduleName, SUCCESS, FAILED} from '../actions/auth';
+import {SIGN_UP, SIGN_IN, LOG_OUT, moduleName} from '../actions/auth';
+import {FAILED, SUCCESS} from '../actions';
 
 const initialState = {
     isSignedUp: false,

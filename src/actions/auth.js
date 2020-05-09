@@ -1,11 +1,9 @@
 import axios from 'axios';
 import {API_URL} from '../const/api';
-import {ACCESS_TOKEN} from '../const/auth';
+import {ACCESS_TOKEN, USER_ID} from '../const/auth';
+import {FAILED, SUCCESS} from './index';
 
 export const moduleName = 'auth';
-
-export const SUCCESS = '_SUCCESS';
-export const FAILED = '_FAILED';
 
 export const SIGN_UP = `${moduleName}/SIGN_UP`;
 export const SIGN_IN = `${moduleName}/SIGN_IN`;
@@ -39,6 +37,7 @@ export const signIn = (formData) => {
                 password: formData.password
             });
 
+            localStorage.setItem(USER_ID, data.userId);
             localStorage.setItem(ACCESS_TOKEN, data.token);
 
             if (status === 200) {
