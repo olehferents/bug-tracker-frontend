@@ -1,7 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Box from '@material-ui/core/Box';
 import {makeStyles} from '@material-ui/styles';
 import Button from '@material-ui/core/Button';
+import Modal from 'react-modal';
+import {modalCustomStyles} from '../../../../const/modalStyles';
+import CreateProject from './CreateProject';
 
 const useStyles = makeStyles({
     root: {
@@ -37,9 +40,12 @@ const useStyles = makeStyles({
 const NoProjects = () => {
     const styles = useStyles();
 
-    const createProject = () => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
+    const handleModal = () => {
+        setIsModalOpen(!isModalOpen);
     };
+
 
     return (
         <Box className={styles.root}>
@@ -54,11 +60,18 @@ const NoProjects = () => {
                     variant="contained"
                     color="primary"
                     size="large"
-                    onClick={createProject}
+                    onClick={handleModal}
                 >
                     Create project
                 </Button>
             </Box>
+            <Modal
+                isOpen={isModalOpen}
+                onRequestClose={handleModal}
+                style={modalCustomStyles}
+            >
+                <CreateProject/>
+            </Modal>
         </Box>
     )
 };
