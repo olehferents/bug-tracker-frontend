@@ -8,8 +8,9 @@ import SignUp from '../Auth/SignUp';
 import SignIn from '../Auth/SignIn';
 import {useDispatch} from 'react-redux';
 import {REFRESH_FORM} from '../../../actions/form';
-import {FAILED, SIGN_UP} from '../../../actions/auth';
+import {SIGN_UP} from '../../../actions/auth';
 import {modalCustomStyles} from '../../../const/modalStyles';
+import {FAILED} from '../../../actions';
 
 const useStyles = makeStyles({
     root: {

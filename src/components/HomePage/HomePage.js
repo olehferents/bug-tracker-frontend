@@ -4,8 +4,9 @@ import {getIsSignedIn} from '../../reducers/auth';
 import Welcome from './WelcomeBlock/Welcome';
 import Dashboard from './Dashboard/Dashboard';
 import {ACCESS_TOKEN} from '../../const/auth';
-import {SIGN_IN, SUCCESS} from '../../actions/auth';
+import {SIGN_IN} from '../../actions/auth';
 import Modal from 'react-modal';
+import {SUCCESS} from '../../actions';
 
 const HomePage = () => {
     const isSignedIn = useSelector(state => getIsSignedIn(state));
