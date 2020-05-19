@@ -69,7 +69,7 @@ const Welcome = () => {
             <Fade in={true} timeout={4000}>
                 <Box className={styles.root}>
                     <Box>
-                    <span className={styles.title}>Bug Tracker System <br/>
+                    <span className={styles.title}>Project management system<br/>
                         <span className={styles.contentText}>Choose one of the options below</span>
                     </span>
                     </Box>
