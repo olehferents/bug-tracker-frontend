@@ -9,6 +9,10 @@ import {moduleName as issueModule} from '../actions/issue';
 import {issue} from './issue';
 import {moduleName as releaseModule} from '../actions/release';
 import {release} from './release';
+import {moduleName as userModule} from '../actions/user';
+import {user} from './user';
+import {moduleName as timelineModule} from '../actions/timeline';
+import {timeline} from './timeline';
 
 export default combineReducers({
     [authModule]: auth,
@@ -16,4 +20,6 @@ export default combineReducers({
     [projectModule]: project,
     [issueModule]: issue,
     [releaseModule]: release,
+    [userModule]: user,
+    [timelineModule]: timeline,
 });
