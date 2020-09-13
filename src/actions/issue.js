@@ -6,6 +6,7 @@ import {FAILED, SUCCESS} from './index';
 export const moduleName = 'issue';
 
 export const GET_ISSUES = `${moduleName}/GET_ISSUES`;
+export const CREATE_ISSUE = `${moduleName}/CREATE_ISSUE`;
 
 export const fetchIssues = (projectId) => {
     return async dispatch => {
@@ -23,6 +24,25 @@ export const fetchIssues = (projectId) => {
             console.log(e);
             const {data} = e.response;
             dispatch({type: GET_ISSUES + FAILED, payload: data});
+        }
+    }
+};
+
+export const createIssue = (issueData) => {
+    return async dispatch => {
+        try {
+            const {status} = await axios.post(`${API_URL}/issue`, issueData, {
+                headers: {
+                    'Authorization': `Bearer ${ACCESS_TOKEN}`,
+                }
+            });
+
+            if (status === 200) {
+                dispatch({type: CREATE_ISSUE + SUCCESS});
+            }
+        } catch (e) {
+            console.log(e);
+            dispatch({type: CREATE_ISSUE + FAILED});
         }
     }
 };

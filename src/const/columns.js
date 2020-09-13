@@ -5,6 +5,11 @@ export const issues = [
         minWidth: 100
     },
     {
+        id: 'name',
+        label: 'Name',
+        minWidth: 120
+    },
+    {
         id: 'priority',
         label: 'Priority',
         minWidth: 120
@@ -27,6 +32,16 @@ export const issues = [
     {
         id: 'description',
         label: 'Description',
+        minWidth: 100
+    },
+    {
+        id: 'assignedTo',
+        label: 'Assigned to',
+        minWidth: 100
+    },
+    {
+        id: 'details',
+        label: 'Issue detail',
         minWidth: 100
     },
 ];

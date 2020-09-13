@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {makeStyles} from '@material-ui/styles';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
@@ -7,8 +7,12 @@ import {getProjectReleases} from '../../../../../reducers/release';
 import {getIssues} from '../../../../../reducers/issue';
 import ChronologyRow from './ChronologyRow';
 import Paper from '@material-ui/core/Paper';
-import {useDispatch, useSelector} from 'react-redux';
-import {fetchTimeline} from '../../../../../actions/timeline';
+import {useSelector} from 'react-redux';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import {modalCustomStyles} from '../../../../../const/modalStyles';
+import Modal from 'react-modal';
+import AddRelease from './AddRelease';
 
 const useStyles = makeStyles({
     root: {
@@ -33,32 +37,79 @@ const useStyles = makeStyles({
 
 const Chronology = () => {
     const styles = useStyles();
-    const dispatch = useDispatch();
 
     const project = useSelector(state => getCurrentProject(state));
     const releases = useSelector(state => getProjectReleases(state));
     const issues = useSelector(state => getIssues(state));
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
-        dispatch(fetchTimeline(1, '2020-05-15', '2020-05-20'));
-    }, []);
+    }, [project, releases, issues]);
 
-    useEffect(() => {}, [project, releases, issues]);
+    const handleNewReleaseModal = () => {
+        setIsModalOpen(!isModalOpen);
+    };
 
     if (releases.length === 0) {
         return (
-            <Typography
-                variant="h3"
-                gutterBottom
-                className={styles.noReleases}
-            >
-                There is no releases
-            </Typography>
+            <>
+                <Typography
+                    variant="h3"
+                    gutterBottom
+                    className={styles.noReleases}
+                >
+                    There is no releases
+                </Typography>
+                <Grid
+                    container
+                    fullWidth
+                    margin="normal"
+                    justify="center"
+                >
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        size="large"
+                        onClick={handleNewReleaseModal}
+                    >
+                        Create a new release
+                    </Button>
+                </Grid>
+                <Modal
+                    isOpen={isModalOpen}
+                    onRequestClose={handleNewReleaseModal}
+                    style={modalCustomStyles}
+                >
+                    <AddRelease/>
+                </Modal>
+            </>
         )
     }
 
     return (
         <Box>
+            <Grid
+                container
+                fullWidth
+                margin="normal"
+                justify="center"
+            >
+                <Button
+                    variant="contained"
+                    color="primary"
+                    size="large"
+                    onClick={handleNewReleaseModal}
+                >
+                    Create a new release
+                </Button>
+            </Grid>
+            <Modal
+                isOpen={isModalOpen}
+                onRequestClose={handleNewReleaseModal}
+                style={modalCustomStyles}
+            >
+                <AddRelease/>
+            </Modal>
             {releases.map(item => {
                 return <Paper className={styles.root} elevation={5}>
                     <Box className={styles.header}>

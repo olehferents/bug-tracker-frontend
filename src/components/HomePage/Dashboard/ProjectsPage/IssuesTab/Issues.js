@@ -21,6 +21,9 @@ import Modal from 'react-modal';
 import AddIssue from './AddIssue';
 import Button from '@material-ui/core/Button';
 import {Box} from '@material-ui/core';
+import OpenInNewIcon from '@material-ui/icons/OpenInNew';
+import IconButton from '@material-ui/core/IconButton';
+import Issue from './Issue';
 
 const useStyles = makeStyles({
     table: {
@@ -42,6 +45,12 @@ const useStyles = makeStyles({
         justifyContent: 'center',
         marginBottom: '10px',
     },
+    detailsIcon: {
+        width: 30,
+        height: 30,
+        fill: '#1771F1',
+        cursor: 'pointer',
+    },
 });
 
 const Issues = () => {
@@ -52,6 +61,7 @@ const Issues = () => {
     const [order, setOrder] = useState('desc');
     const [orderBy, setOrderBy] = useState('id');
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isDetailsOpen, setIsDetailsOpen] = useState(false);
 
     const rows = useSelector(state => getIssues(state));
 
@@ -59,7 +69,8 @@ const Issues = () => {
         setIsModalOpen(!isModalOpen);
     };
 
-    useEffect(() => {}, [rows]);
+    useEffect(() => {
+    }, [rows]);
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -76,6 +87,10 @@ const Issues = () => {
         setOrderBy(property);
     };
 
+    const openIssueDetails = () => {
+        setIsDetailsOpen(!isDetailsOpen);
+    };
+
     return (
         <Paper>
             <Box className={styles.buttonsBlock}>
@@ -89,7 +104,7 @@ const Issues = () => {
                 </Button>
             </Box>
             <TableContainer>
-                <Table stickyHeader={!isModalOpen} aria-label="sticky table">
+                <Table stickyHeader={!isModalOpen && !isDetailsOpen} aria-label="sticky table">
                     <EnhancedTableHead
                         classes={styles}
                         order={order}
@@ -109,6 +124,7 @@ const Issues = () => {
                                         key={row.name}
                                     >
                                         <TableCell>{row.id}</TableCell>
+                                        <TableCell>{row.name}</TableCell>
                                         <>
                                             {row.priority === 'normal' ? <Tooltip title="Normal">
                                                 <RemoveIcon color="primary" fontSize="large"/>
@@ -122,11 +138,25 @@ const Issues = () => {
                                                 </Tooltip>
                                             </TableCell>}
                                         </>
-                                        <TableCell>{row.name}</TableCell>
                                         <TableCell>{row.category}</TableCell>
                                         <TableCell>{row.status}</TableCell>
                                         <TableCell>{row.updatedAt}</TableCell>
                                         <TableCell>{row.description}</TableCell>
+                                        <TableCell>{row.assignedTo}</TableCell>
+                                        <TableCell>
+                                            <IconButton onClick={openIssueDetails}>
+                                                <OpenInNewIcon
+                                                    className={styles.detailsIcon}
+                                                />
+                                            </IconButton>
+                                        </TableCell>
+                                        <Modal
+                                            isOpen={isDetailsOpen}
+                                            onRequestClose={openIssueDetails}
+                                            style={modalCustomStyles}
+                                        >
+                                            <Issue issue={row}/>
+                                        </Modal>
                                     </TableRow>
                                 );
                             })}

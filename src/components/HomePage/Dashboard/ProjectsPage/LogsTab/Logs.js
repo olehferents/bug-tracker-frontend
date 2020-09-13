@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import DateFnsUtils from '@date-io/date-fns';
 import {format} from 'date-fns';
 import Box from '@material-ui/core/Box';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {getLogs} from '../../../../../reducers/timeline';
 import ScheduleIcon from '@material-ui/icons/Schedule';
 import Typography from '@material-ui/core/Typography';
@@ -54,6 +54,7 @@ const useStyles = makeStyles({
 
 const Logs = () => {
     const styles = useStyles();
+    const dispatch = useDispatch();
 
     const [dateFrom, setDateFrom] = useState(format(new Date(), 'MM/dd/yyyy'));
     const [dateTo, setDateTo] = useState(format(new Date(), 'MM/dd/yyyy'));
@@ -69,7 +70,7 @@ const Logs = () => {
     };
 
     useEffect(() => {
-        dispatch(fetchTimeline(1, '2020-05-15', '2020-05-20'));
+        // dispatch(fetchTimeline(1, '2020-05-15', '2020-05-20'));
     }, []);
 
     if (logs.length === 0) {
@@ -116,7 +117,7 @@ const Logs = () => {
                     />
                 </Grid>
             </MuiPickersUtilsProvider>
-            <>
+            {/* <>
                 {logs.map(item => {
                     const {user, issueId, action, date} = item;
                     return <Box className={styles.logsItem} boxShadow={3}>
@@ -131,7 +132,7 @@ const Logs = () => {
                         </Box>
                     </Box>
                 })}
-            </>
+            </> */}
         </Box>
     )
 };

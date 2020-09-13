@@ -45,6 +45,11 @@ const Members = () => {
                 title="Members"
                 columns={membersColumns}
                 data={members}
+                options={isModalOpen && {
+                    headerStyle: {
+                        zIndex: '0',
+                    }
+                }}
             />
             <Modal
                 isOpen={isModalOpen}

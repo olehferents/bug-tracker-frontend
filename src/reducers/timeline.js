@@ -4,7 +4,9 @@ import {
 } from '../actions/timeline';
 
 const initialState = {
-    logs: [],
+    logs: [{
+        id: '1'
+    }],
 };
 
 export const timeline = (state = initialState, action) => {

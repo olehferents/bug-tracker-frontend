@@ -62,13 +62,6 @@ const SignIn = () => {
             <FormHeader title="Sign In" icon={true}/>
             <Grid
                 container
-                direction="row"
-                justify="space-between"
-                alignItems="center"
-            >
-            </Grid>
-            <Grid
-                container
                 direction="column"
                 justify="center"
                 alignItems="center"

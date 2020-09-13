@@ -3,7 +3,14 @@ import {GET_PROJECT_RELEASES} from '../actions/release';
 import {SUCCESS} from '../actions';
 
 const initialState = {
-    releases: [],
+    releases: [
+        {
+            id: 1,
+            name: '0.0.1',
+            date: '05-26-2020',
+            projectId: 1
+        }
+    ],
 };
 
 export const release = (state = initialState, action) => {

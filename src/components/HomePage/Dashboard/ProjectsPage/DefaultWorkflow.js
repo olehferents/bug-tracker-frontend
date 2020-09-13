@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {makeStyles} from '@material-ui/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
@@ -10,6 +10,7 @@ import Members from './MembersTab/Members';
 import Issues from './IssuesTab/Issues';
 import Repositories from './RepositoriesTab/Repositories';
 import Logs from './LogsTab/Logs';
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
     main: {
@@ -47,12 +48,17 @@ function TabPanel(props) {
 
 const DefaultWorkflow = () => {
     const styles = useStyles();
+    const history = useHistory();
 
     const [tabValue, setTabValue] = useState(0);
 
     const handleChange = (event, newValue) => {
         setTabValue(newValue);
     };
+
+    useEffect(() => {
+        history.push("/projects");
+    }, []);
 
     return (
         <Box className={styles.main}>
